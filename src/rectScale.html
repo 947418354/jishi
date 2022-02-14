@@ -126,7 +126,6 @@
     ];
     for (let i = 0, l = dragIcons.length; i < l; i++) {
       let icon = document.createElement('i');
-      icon.id = Math.random().toString(36).substring(7);
       icon.style.display = 'inline-block';
       icon.style.width = this.dragIconSize;
       icon.style.height = this.dragIconSize;
@@ -147,10 +146,8 @@
    * 移动主矩形
    */
   CreateDragRect.prototype.moveRect = function (x, y) {
-    if (this.isTopMove && this.isLeftMove) {
-      this.rect.style.left = x + this.rectOffsetLeft + 'px';
-			this.rect.style.top = y + this.rectOffsetTop + 'px';
-    }
+    this.rect.style.left = x + this.rectOffsetLeft + 'px';
+    this.rect.style.top = y + this.rectOffsetTop + 'px';
   };
 
   /**
