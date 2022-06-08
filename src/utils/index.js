@@ -35,3 +35,8 @@ function reverse(lian) {
     cur = lCur
   }
 }
+
+/**
+ * 手写promise
+ * https://blog.csdn.net/qq_32644987/article/details/117842230
+ */
