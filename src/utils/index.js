@@ -40,3 +40,11 @@ function reverse(lian) {
  * 手写promise
  * https://blog.csdn.net/qq_32644987/article/details/117842230
  */
+
+
+/**
+ * 求两个数组交集
+ */
+function andArr(arr1, arr2) {
+  return arr1.filter(ele => arr2.includes(ele))
+}
