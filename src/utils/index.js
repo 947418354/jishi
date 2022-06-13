@@ -17,3 +17,28 @@ function numQ(num) {
 }
 console.log('输入123.456789', numQ(123.456789))
 console.log('输入123456', numQ(123456))
+
+/**
+ * 一个字符串 找出其中出现次数最多的字符串以及次数
+ */
+
+
+/**
+ * 将json对象的叶子结点以路径输出
+ * 输出 ['arr.list.a.a', 'arr.list.b.b', 'obj.a.a', 'obj.b.b', 'a.a']
+ */
+const jsonObj = {
+  arr: [
+    {a: 'a'},
+    {b: 'b'}
+  ],
+  obj: {
+    a: 'a',
+    b: 'b'
+  },
+  a: 'a'
+}
+
+function jsonToPath(jsonObj) {
+
+}
