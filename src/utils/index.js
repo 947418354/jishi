@@ -70,3 +70,41 @@ function reverse(lian) {
 function andArr(arr1, arr2) {
   return arr1.filter(ele => arr2.includes(ele))
 }
+
+/* 
+嵌套对象的扁平化
+const entry = {
+  a: {
+      b: {
+          c: {
+              dd: 'abcdd',
+          },
+      },
+      d: {
+          xx: 'adxx',
+      },
+      e: 'ae',
+  },
+  b: ['b0', 'b1'],
+}; */
+// When we invoke the "convertObject" method and pass the parameter "entry" object: convertObject(entry)
+// The result is:
+// {
+//   'a.b.c.dd': 'abcdd',
+//   'a.d.xx': 'adxx',
+//   'a.e': 'ae',
+// };
+// Please complete the convertObject method
+function convertObject(o, prefix = '') {
+  let obj = {}
+  for (const key in o) {
+    if (o.hasOwnProperty.call(o, key)) {
+      if (typeof o[key] === 'object') {
+        obj = { ...obj, ...convertObject(o[key], prefix + key + '.') }
+      } else {
+        obj[prefix + key] = o[key]
+      }
+    }
+  }
+  return obj
+}
