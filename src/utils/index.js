@@ -108,3 +108,32 @@ function convertObject(o, prefix = '') {
   }
   return obj
 }
+
+/*
+最长递增子序列长度
+动态规划 加 二分查找 时间复杂度 最优O(n) 最坏O(nlog2 n) 平均O(nlog2 n) 
+空间复杂度n
+*/
+function lengthOfLIS(nums) {
+  const n = nums.length,
+    let d = []	// 抽象数组,抽象出来的最长子序列,并不等于实际的最长子序列
+  if (n === 0 || n === 1) return n
+  d[0] = nums[0]
+  for (let i = 1; i < n; i++) {
+    if (nums[i] > d[d.length - 1]) {
+      d.push(nums[i])
+    } else {
+      let l = 0, r = d.length - 1, mid
+      while (l < r) {
+        mid = Math.floor((l + r) / 2)
+        if (nums[i] > d[mid]) {
+          l = mid + 1
+        } else {
+          r = mid
+        }
+      }
+      d[r] = nums[i]
+    }
+  }
+  return d.length
+}
