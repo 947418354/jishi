@@ -128,6 +128,55 @@ function convertObject(o, prefix = '') {
   return obj
 }
 
+/**
+ * 扁平化对象列表,嵌套化
+ * @param {*} nums 
+ * @returns [
+     {
+         id: 0,
+         name: "root",
+         parentId: null,
+         "children": [...]
+     }
+ ]
+ */
+const arr = [
+  { id: 1, name: 'child1', parentId: 0 },
+  { id: 2, name: 'child2', parentId: 0 },
+  { id: 6, name: 'child2_1', parentId: 2 },
+  { id: 0, name: 'root', parentId: null },
+  { id: 5, name: 'child1_2', parentId: 1 },
+  { id: 4, name: 'child1_1', parentId: 1 },
+  { id: 3, name: 'child3', parentId: 0 }
+]
+function platToNest(arr) {
+  function find(arr, id) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return arr[i]
+      } else if (arr[i].children && arr[i].children.length) {
+        let parent = find(arr[i].children, id)
+        if (parent) return parent
+      }
+    }
+  }
+  let i = 0
+  while (i < arr.length) {
+    let p = find(arr, arr[i].parentId)
+    if (p) {
+      let curr = arr.splice(i, 1)[0]
+      if (p.children) {
+        p.children.push(curr)
+      } else {
+        p.children = [curr]
+      }
+      i--
+    }
+    i++
+  }
+  return arr
+}
+
 /*
 最长递增子序列长度
 动态规划 加 二分查找 时间复杂度 最优O(n) 最坏O(nlog2 n) 平均O(nlog2 n) 
