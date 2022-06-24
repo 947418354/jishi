@@ -25,7 +25,7 @@ console.log('输入123456', numQ(123456))
 
 /**
  * 将json对象的叶子结点以路径输出
- * 输出 ['arr.list.a.a', 'arr.list.b.b', 'obj.a.a', 'obj.b.b', 'a.a']
+ * 输出 ['arr.0.a.a', 'arr.1.b.b', 'obj.a.a', 'obj.b.b', 'a.a']
  */
 const jsonObj = {
   arr: [
@@ -38,9 +38,28 @@ const jsonObj = {
   },
   a: 'a'
 }
-
-function jsonToPath(jsonObj) {
+function jsonToPath(jsonObj, pre = '') {
+  let arr = []
+  if (Object.prototype.toString.call(jsonObj) === '[object Array]') {
+    for (const [i, ele] of jsonObj.entries()) {
+      if (typeof ele === 'object') {
+        arr = arr.concat(jsonToPath(ele, pre + i + '.'))
+      } else {
+        arr.push(pre + i + '.' + ele)
+      }
+    }
+  } else if (Object.prototype.toString.call(jsonObj) === '[object Object]') {
+    for (key in jsonObj) {
+      if (typeof jsonObj[key] === 'object') {
+        arr = arr.concat(jsonToPath(jsonObj[key], pre + key + '.'))
+      } else {
+        arr.push(pre + key + '.' + jsonObj[key])
+      }
+    }
+  }
+  return arr
 }
+
 /* 单向链表反转
     * 思路: while整个链表, 提前申明好一些变量用于存储上一个节点, 当前节点等, 每遍历到一个节点就将其下一个节点先存进当前临时节点变量,
  * 再将next指向上一个结点的变量, 再将前一个节点变量指向当前节点, 当前节点变量指向临时的当前节点变量
